@@ -1,0 +1,61 @@
+﻿<phone:PhoneApplicationPage
+  x:Class="Bugemos.MainPage"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+  xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
+  FontFamily="{StaticResource PhoneFontFamilyNormal}"
+  FontSize="{StaticResource PhoneFontSizeNormal}"
+  Foreground="{StaticResource PhoneForegroundBrush}"
+  SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+  shell:SystemTray.IsVisible="False">
+
+  <phone:PhoneApplicationPage.Resources>
+    <DataTemplate x:Key="ListItem">
+      <StackPanel x:Name="Strip" Margin="0,0,0,12" Width="456" Height="80" Orientation="Horizontal" Tap="StripTap">
+        <Border x:Name="ImageBox" Height="80" Width="80" Background="transparent">
+          <Image Source="{Binding LocalImage, Converter={StaticResource ImageSrcProvider}}"/>
+        </Border>
+        <StackPanel Margin="12,0,0,0" Orientation="Vertical">
+          <TextBlock x:Name="StripTitle" Text="{Binding Title}" Style="{StaticResource PhoneTextLargeStyle}" Margin="0"/>
+          <TextBlock x:Name="StripDate" Text="{Binding Date, Converter={StaticResource DateProvider}}" TextWrapping="Wrap" Margin="0,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+        </StackPanel>
+      </StackPanel>
+    </DataTemplate>
+
+  </phone:PhoneApplicationPage.Resources>
+
+  <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!--TitlePanel contains the name of the application and page title-->
+    <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0,6,0,0">
+      <TextBlock x:Name="ApplicationTitle" Style="{StaticResource PhoneTextNormalStyle}" Text="Bugemos"/>
+      <TextBlock x:Name="PageTitle" Text="Přehled stripů" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+    </StackPanel>
+
+    <TextBlock x:Name="ErrorTextBox" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1" Margin="12,0,11,0" Text="{Binding Message}" Height="20"/>
+
+    <ProgressBar x:Name="Progress" Grid.Row="1" VerticalAlignment="Top"
+      IsIndeterminate="{Binding Downloading}" Visibility="{Binding Downloading, Converter={StaticResource ProgressVisibleProvider}}" Height="20"/>
+
+    <ListBox Grid.Row="1" Margin="12,12,12,0" ItemsSource="{Binding Strips}" ItemTemplate="{StaticResource ListItem}"/>
+  </Grid>
+
+  <phone:PhoneApplicationPage.ApplicationBar>
+    <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Minimized">
+      <shell:ApplicationBar.MenuItems>
+        <shell:ApplicationBarMenuItem x:Name="WebBugemos" Text="Web Bugemos" Click="UrlClick"/>
+        <shell:ApplicationBarMenuItem x:Name="About" Text="o aplikaci" Click="AboutClick"/>
+      </shell:ApplicationBar.MenuItems>
+    </shell:ApplicationBar>
+  </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
+  

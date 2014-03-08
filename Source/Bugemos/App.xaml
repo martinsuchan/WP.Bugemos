@@ -1,0 +1,22 @@
+﻿<Application
+  x:Class="Bugemos.App"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" xmlns:Bugemos="clr-namespace:Bugemos">
+
+  <!--Application Resources-->
+  <Application.Resources>
+    <Bugemos:DateFormatter x:Key="DateProvider" />
+    <Bugemos:ImageSrc x:Key="ImageSrcProvider" />
+    <Bugemos:ProgressVisible x:Key="ProgressVisibleProvider" />
+  </Application.Resources>
+
+  <Application.ApplicationLifetimeObjects>
+    <!--Required object that handles lifetime events for the application-->
+    <shell:PhoneApplicationService
+      Launching="Application_Launching" Closing="Application_Closing"
+      Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+  </Application.ApplicationLifetimeObjects>
+
+</Application>
+  

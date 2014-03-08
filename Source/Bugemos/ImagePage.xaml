@@ -1,0 +1,55 @@
+﻿<phone:PhoneApplicationPage
+  x:Class="Bugemos.ImagePage"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+  xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+  FontFamily="{StaticResource PhoneFontFamilyNormal}"
+  FontSize="{StaticResource PhoneFontSizeNormal}"
+  Foreground="{StaticResource PhoneForegroundBrush}"
+  SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+  mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
+  shell:SystemTray.IsVisible="False">
+
+  <!--LayoutRoot is the root grid where all page content is placed-->
+  <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <!--TitlePanel contains the name of the application and page title-->
+    <StackPanel x:Name="TitlePanel">
+      <Grid Height="27">
+        <TextBlock x:Name="PublicationDate" Text="{Binding Date, Converter={StaticResource DateProvider}}" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Left" d:LayoutOverrides="Height"/>
+        <TextBlock x:Name="ApplicationTitle" Text="Bugemos" Style="{StaticResource PhoneTextSmallStyle}" HorizontalAlignment="Right" d:LayoutOverrides="Height"/>
+    	</Grid>
+      <TextBlock x:Name="StripTitle" Text="{Binding Title}" Style="{StaticResource PhoneTextLargeStyle}"/>
+    </StackPanel>
+
+    <!--ContentPanel - place additional content here-->
+    <Image x:Name="MainImage" RenderTransformOrigin="0.5,0.5" CacheMode="BitmapCache" Source="{Binding LocalImage, Converter={StaticResource ImageSrcProvider}}" Grid.RowSpan="2">
+    	<Image.RenderTransform>
+    		<CompositeTransform x:Name="transform" />
+    	</Image.RenderTransform>
+    	<toolkit:GestureService.GestureListener>
+    		<toolkit:GestureListener PinchStarted="OnPinchStarted" PinchDelta="OnPinchDelta" DragDelta="OnDragDelta"/>
+    	</toolkit:GestureService.GestureListener>
+    </Image>
+  </Grid>
+ 
+  <!--Sample code showing usage of ApplicationBar-->
+  <phone:PhoneApplicationPage.ApplicationBar>
+    <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+      <shell:ApplicationBarIconButton x:Name="Prev" IconUri="/images/back.png" Text="starší" Click="PrevClick"/>
+      <!--<shell:ApplicationBarIconButton x:Name="Share" IconUri="/Images/share.png" Text="sdílet" Click="ShareClick" IsEnabled="False"/>-->
+      <shell:ApplicationBarIconButton x:Name="Next" IconUri="/images/next.png" Text="novější" Click="NextClick"/>
+      <shell:ApplicationBar.MenuItems>
+        <shell:ApplicationBarMenuItem x:Name="Web" Text="strip na webu" Click="WebClick"/>
+      </shell:ApplicationBar.MenuItems>
+    </shell:ApplicationBar>
+  </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
